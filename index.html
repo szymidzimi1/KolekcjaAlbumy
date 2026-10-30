@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Moje albumy</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a id="gora"></a>
+
+  <table class="layout">
+    <tr>
+      <!-- Menu -->
+      <td class="sidebar">
+        <p class="menu-head">MENU</p>
+
+        <p class="menu-label">Sortuj według:</p>
+        <ul id="sort" class="menu"></ul>
+
+        <p class="menu-label">Artyści:</p>
+        <ul id="index" class="menu"></ul>
+      </td>
+
+      <!-- Prawa kolumna -->
+      <td class="content">
+        <h1>Moje albumy</h1>
+
+        <!-- Przewijany napis -->
+        <div class="ticker">
+          <marquee id="marquee" scrollamount="4">
+            Witaj na mojej stronie z płytami!
+          </marquee>
+        </div>
+
+        <p class="center">W kolekcji: <b id="count"></b></p>
+
+        <hr>
+
+        <div id="albums"></div>
+
+        <hr>
+
+        <p class="center small">[ <a href="#gora">do góry</a> ]</p>
+        <p class="center small">
+          Ostatnia aktualizacja: <span id="updated"></span><br>
+        </p>
+      </td>
+    </tr>
+  </table>
+
+  <script src="albums.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
