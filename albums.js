@@ -16,7 +16,7 @@ const ALBUMS = [
   },
   {
     title: "Sed do eiusmod",
-    artist: "Tempor Incididunt",
+    artist: "Sit Amet",
     info: { Rok: "2012", 
             Gatunek: "Et dolore",
             Nośnik: "Magna"}

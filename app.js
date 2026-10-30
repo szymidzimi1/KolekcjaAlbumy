@@ -92,18 +92,10 @@ const numbered = ALBUMS.map((a, i) => ({ ...a, id: `album-${i + 1}` }));
 const albums = SORTS[current].fn ? [...numbered].sort(SORTS[current].fn) : numbered;
 
 const list = document.getElementById("albums");
-const anchored = new Set();
 albums.forEach(a => {
   const node = renderAlbum(a);
   node.id = a.id;
-  const artistId = slug(a.artist);
-  node.dataset.artist = artistId;
-  if (!anchored.has(artistId)) {
-    const anchor = document.createElement("a");
-    anchor.id = artistId;
-    node.prepend(anchor);
-    anchored.add(artistId);
-  }
+  node.dataset.artist = slug(a.artist);
   list.appendChild(node);
 });
 
