@@ -139,12 +139,6 @@ const word = n === 1 ? "album"
   : "albumów";
 document.getElementById("count").textContent = `${n} ${word}`;
 
-// Data ostatniej aktualizacji
-const mod = new Date(document.lastModified);
-const pad = x => String(x).padStart(2, "0");
-document.getElementById("updated").textContent =
-  `${pad(mod.getDate())}.${pad(mod.getMonth() + 1)}.${mod.getFullYear()}`;
-
 if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   const m = document.getElementById("marquee");
   if (m && m.stop) m.stop();
