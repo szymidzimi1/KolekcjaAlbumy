@@ -23,8 +23,8 @@ Aplikacja do katalogowania płyt.
 | `app.js` | Zakładki działów, wyświetlanie albumów, sortowanie i podświetlanie |
 | `winyle.js` | **Lista winyli** |
 | `kasety.js` | **Lista kaset** |
-| `covers/` | Okładki winyli (opcjonalnie) |
-| `covers/kasety/` | Okładki kaset (opcjonalnie) |
+| `covers/` | Okładki winyli (opcjonalnie, nie trafiają do repozytorium) |
+| `covers/kasety/` | Okładki kaset (opcjonalnie, nie trafiają do repozytorium) |
 
 ## Dodawanie albumu
 
@@ -43,3 +43,8 @@ W `winyle.js` (tablica `WINYLE`) albo `kasety.js` (tablica `KASETY`) dopisz kole
 ## Uruchomienie
 
 Wystarczy skopiować cały folder do katalogu, z którego serwer WWW podaje pliki (np. `/var/www/html/albumy`).
+
+## Licencja
+
+Kod jest udostępniony na licencji MIT, szczegóły w pliku [LICENSE](LICENSE).
+Licencja nie obejmuje okładek albumów: prawa do nich należą do ich właścicieli.

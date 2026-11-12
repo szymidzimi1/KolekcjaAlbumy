@@ -1,0 +1,8 @@
+covers/
+.env
+.vscode/
+.DS_Store
+Thumbs.db
+*.swp
+tests/
+*.sqlite
