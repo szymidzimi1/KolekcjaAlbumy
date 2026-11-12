@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Moje albumy</title>
+  <title>Moje albumy – Winyle</title>
   <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-dzial="winyle">
   <a id="gora"></a>
 
   <table class="layout">
@@ -24,6 +24,9 @@
 
       <!-- Prawa kolumna -->
       <td class="content">
+        <!-- Zakładki działów (wypełnia app.js) -->
+        <div id="tabs" class="tabs"></div>
+
         <h1>Moje albumy</h1>
 
         <!-- Przewijany napis -->
@@ -46,7 +49,7 @@
     </tr>
   </table>
 
-  <script src="albums.js"></script>
+  <script src="winyle.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

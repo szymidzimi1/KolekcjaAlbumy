@@ -6,7 +6,7 @@ info    - dowolne pary "nazwa: wartość", wyświetlane pod albumem (opcjonalne)
 note    - krótka notatka tekstem (opcjonalne)
 */
 
-const ALBUMS = [
+const WINYLE = [
   {
     title: "Lorem ipsum dolor",
     artist: "Sit Amet",

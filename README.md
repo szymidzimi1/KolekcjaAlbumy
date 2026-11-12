@@ -17,15 +17,18 @@ Aplikacja do katalogowania płyt.
 
 | Plik | Do czego służy |
 |------|----------------|
-| `index.html` | Szkielet strony i tekst przewijanego napisu |
+| `index.html` | Dział Winyle: szkielet strony i tekst przewijanego napisu |
+| `kasety.html` | Dział Kasety: ten sam szkielet |
 | `style.css` | Wygląd |
-| `app.js` | Wyświetlanie albumów, sortowanie i podświetlanie |
-| `albums.js` | **Lista albumów, edytujesz tylko ten plik** |
-| `covers/` | Okładki albumów (opcjonalnie) |
+| `app.js` | Zakładki działów, wyświetlanie albumów, sortowanie i podświetlanie |
+| `winyle.js` | **Lista winyli** |
+| `kasety.js` | **Lista kaset** |
+| `covers/` | Okładki winyli (opcjonalnie) |
+| `covers/kasety/` | Okładki kaset (opcjonalnie) |
 
 ## Dodawanie albumu
 
-W `albums.js` dopisz kolejny wpis do tablicy `ALBUMS`:
+W `winyle.js` (tablica `WINYLE`) albo `kasety.js` (tablica `KASETY`) dopisz kolejny wpis:
 
 ```js
 {

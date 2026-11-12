@@ -71,6 +71,21 @@ function menuItem(child) {
   return li;
 }
 
+// Działy: nazwa zakładki, strona, dane i odmiana licznika
+const DZIALY = {
+  winyle: { nazwa: "Winyle", strona: "index.html",  dane: () => WINYLE, slowa: ["album", "albumy", "albumów"] },
+  kasety: { nazwa: "Kasety", strona: "kasety.html", dane: () => KASETY, slowa: ["kaseta", "kasety", "kaset"] },
+};
+const DZIAL = DZIALY[document.body.dataset.dzial] ? document.body.dataset.dzial : "winyle";
+const ALBUMS = DZIALY[DZIAL].dane();
+
+const tabs = document.getElementById("tabs");
+Object.entries(DZIALY).forEach(([key, d]) => {
+  const tab = el(key === DZIAL ? "b" : "a", "tab", d.nazwa);
+  if (key !== DZIAL) tab.href = d.strona + location.search;
+  tabs.appendChild(tab);
+});
+
 // Sortowanie
 const year = a => parseInt(String(a.info?.Rok ?? "").match(/\d{4}/)?.[0]) || 9999;
 
@@ -133,7 +148,8 @@ window.addEventListener("hashchange", highlight);
 
 // Licznik
 const n = ALBUMS.length;
-const word = { one: "album", few: "albumy" }[new Intl.PluralRules("pl").select(n)] ?? "albumów";
+const [one, few, many] = DZIALY[DZIAL].slowa;
+const word = { one, few }[new Intl.PluralRules("pl").select(n)] ?? many;
 document.getElementById("count").textContent = `${n} ${word}`;
 
 if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
