@@ -20,8 +20,14 @@ function slug(text) {
   return text.toLowerCase()
     .normalize("NFD").replace(/[̀-ͯ]/g, "")
     .replace(/ł/g, "l")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
+    .replace(/[^\p{L}\p{N}]+/gu, "-")
+    .replace(/^-|-$/g, "") || "artysta";
+}
+
+function placeholder(cover, album) {
+  cover.textContent = "";
+  cover.style.backgroundColor = colorFor(album.title);
+  cover.appendChild(el("span", "cover-title", album.title));
 }
 
 function renderAlbum(album) {
@@ -33,10 +39,10 @@ function renderAlbum(album) {
     img.src = album.cover;
     img.alt = `Okładka: ${album.title}, ${album.artist}`;
     img.loading = "lazy";
+    img.onerror = () => placeholder(cover, album);
     cover.appendChild(img);
   } else {
-    cover.style.backgroundColor = colorFor(album.title);
-    cover.appendChild(el("span", "cover-title", album.title));
+    placeholder(cover, album);
   }
   item.appendChild(cover);
 
@@ -91,20 +97,27 @@ Object.entries(SORTS).forEach(([key, s]) => {
 const numbered = ALBUMS.map((a, i) => ({ ...a, id: `album-${i + 1}` }));
 const albums = SORTS[current].fn ? [...numbered].sort(SORTS[current].fn) : numbered;
 
+// Spis artystów alfabetycznie; każdy dostaje unikalny adres (np. "AC/DC" i "AC DC" różne)
+const artists = [...new Set(ALBUMS.map(a => a.artist))].sort((a, b) => a.localeCompare(b, "pl"));
+const artistIds = new Map();
+artists.forEach(name => {
+  let id = slug(name), i = 2;
+  while ([...artistIds.values()].includes(id)) id = `${slug(name)}-${i++}`;
+  artistIds.set(name, id);
+});
+
 const list = document.getElementById("albums");
 albums.forEach(a => {
   const node = renderAlbum(a);
   node.id = a.id;
-  node.dataset.artist = slug(a.artist);
+  node.dataset.artist = artistIds.get(a.artist);
   list.appendChild(node);
 });
 
-// Spis artystów alfabetycznie
-const artists = [...new Set(ALBUMS.map(a => a.artist))].sort((a, b) => a.localeCompare(b, "pl"));
 const indexList = document.getElementById("index");
 artists.forEach(name => {
   const a = el("a", "", name);
-  a.href = `#${slug(name)}`;
+  a.href = `#${artistIds.get(name)}`;
   indexList.appendChild(menuItem(a));
 });
 

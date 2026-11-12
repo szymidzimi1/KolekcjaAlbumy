@@ -111,6 +111,7 @@ hr {
   text-align: left;
   font-size: 16px;
   scroll-margin-top: 10px;
+  overflow-wrap: anywhere;
 }
 
 .album.wybrany {
