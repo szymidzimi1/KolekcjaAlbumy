@@ -18,7 +18,7 @@ function el(tag, className, text) {
 
 function slug(text) {
   return text.toLowerCase()
-    .normalize("NFD").replace(/[̀-ͯ]/g, "")
+    .normalize("NFD").replace(/\p{M}/gu, "")
     .replace(/ł/g, "l")
     .replace(/[^\p{L}\p{N}]+/gu, "-")
     .replace(/^-|-$/g, "") || "artysta";
@@ -72,11 +72,13 @@ function menuItem(child) {
 }
 
 // Sortowanie
+const year = a => parseInt(String(a.info?.Rok ?? "").match(/\d{4}/)?.[0]) || 9999;
+
 const SORTS = {
   kolejnosc: { label: "kolejności dodania", fn: null },
   tytul:     { label: "tytułu",  fn: (a, b) => a.title.localeCompare(b.title, "pl") },
   artysta:   { label: "artysty", fn: (a, b) => a.artist.localeCompare(b.artist, "pl") || a.title.localeCompare(b.title, "pl") },
-  rok:       { label: "roku",    fn: (a, b) => (parseInt(a.info?.Rok) || 9999) - (parseInt(b.info?.Rok) || 9999) }
+  rok:       { label: "roku",    fn: (a, b) => year(a) - year(b) }
 };
 
 const params = new URLSearchParams(location.search);
@@ -84,13 +86,9 @@ const current = SORTS[params.get("sortuj")] ? params.get("sortuj") : "kolejnosc"
 
 const sortList = document.getElementById("sort");
 Object.entries(SORTS).forEach(([key, s]) => {
-  if (key === current) {
-    sortList.appendChild(menuItem(el("b", "", s.label)));
-  } else {
-    const a = el("a", "", s.label);
-    a.href = key === "kolejnosc" ? "?" : `?sortuj=${key}`;
-    sortList.appendChild(menuItem(a));
-  }
+  const item = el(key === current ? "b" : "a", "", s.label);
+  if (key !== current) item.href = key === "kolejnosc" ? "?" : `?sortuj=${key}`;
+  sortList.appendChild(menuItem(item));
 });
 
 // Numerowanie albumów 
@@ -122,7 +120,8 @@ artists.forEach(name => {
 });
 
 function highlight() {
-  const target = decodeURIComponent(location.hash.slice(1));
+  let target = location.hash.slice(1);
+  try { target = decodeURIComponent(target); } catch {}
   document.querySelectorAll(".album").forEach(node => {
     const match = target !== "" &&
       (node.id === target || node.dataset.artist === target);
@@ -134,9 +133,7 @@ window.addEventListener("hashchange", highlight);
 
 // Licznik
 const n = ALBUMS.length;
-const word = n === 1 ? "album"
-  : (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) ? "albumy"
-  : "albumów";
+const word = { one: "album", few: "albumy" }[new Intl.PluralRules("pl").select(n)] ?? "albumów";
 document.getElementById("count").textContent = `${n} ${word}`;
 
 if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
