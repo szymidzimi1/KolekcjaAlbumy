@@ -2,7 +2,7 @@
 
 Aplikacja do katalogowania płyt.
 
-![Dział Winyle na komputerze](screen/screenshot.png)
+![Dział Winyle na komputerze](docs/screenshot.png)
 
 ## Funkcje
 
@@ -18,18 +18,18 @@ Aplikacja do katalogowania płyt.
 |------|----------------|
 | `index.html` | Dział Winyle: szkielet strony i tekst przewijanego napisu |
 | `kasety.html` | Dział Kasety: ten sam szkielet |
-| `style.css` | Wygląd |
-| `app.js` | Zakładki działów, wyświetlanie albumów, sortowanie i podświetlanie |
-| `widget.js` | Cebula w prawym dolnym rogu |
-| `winyle.js` | **Lista winyli** |
-| `kasety.js` | **Lista kaset** |
+| `css/style.css` | Wygląd |
+| `js/app.js` | Zakładki działów, wyświetlanie albumów, sortowanie i podświetlanie |
+| `js/widget.js` | Cebula w prawym dolnym rogu |
+| `data/winyle.js` | **Lista winyli** |
+| `data/kasety.js` | **Lista kaset** |
 | `img/` | Grafiki strony (cebula) |
-| `screen/` | Zrzuty ekranu do README |
+| `docs/` | Zrzuty ekranu do README |
 | `LICENSE` | Licencja MIT |
 
 ## Dodawanie albumu
 
-W `winyle.js` (tablica `WINYLE`) albo `kasety.js` (tablica `KASETY`) dopisz kolejny wpis:
+W `data/winyle.js` (tablica `WINYLE`) albo `data/kasety.js` (tablica `KASETY`) dopisz kolejny wpis:
 
 ```js
 {
