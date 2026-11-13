@@ -23,8 +23,6 @@ Aplikacja do katalogowania płyt.
 | `js/widget.js` | Cebula w prawym dolnym rogu |
 | `data/winyle.js` | **Lista winyli** |
 | `data/kasety.js` | **Lista kaset** |
-| `img/` | Grafiki strony (cebula) |
-| `docs/` | Zrzuty ekranu do README |
 | `LICENSE` | Licencja MIT |
 
 ## Dodawanie albumu
