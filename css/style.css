@@ -28,10 +28,11 @@ a:active { color: #ff0000; }
 
 /* Lewa kolumna z menu */
 .sidebar {
+  position: relative;
   width: 150px;
   background: #000080;
   color: #fff;
-  padding: 8px;
+  padding: 8px 8px 44px; /* dół: miejsce na link „Ustawienia” przyklejony do dołu */
   border-right: 2px groove #fff;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 13px;
@@ -205,6 +206,89 @@ body[data-dzial="kasety"] .cover img { object-fit: contain; background: #000; }
 
 .note { margin: 6px 0 0; font-size: 0.9em; }
 
+/* Link do ustawień przyklejony do dołu menu */
+.menu-bottom {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  margin: 0;
+  padding-top: 8px;
+  border-top: 1px solid #fff;
+  font-weight: bold;
+}
+
+/* Komunikat w miejscu wyłączonego działu */
+.wylaczony {
+  margin: 16px 0;
+  padding: 8px;
+  border: 1px inset #fff;
+  background: #fff;
+}
+
+/* Strona ustawień: formularz jak w Windows 95, ten sam font co menu */
+.ustawienia,
+.ustawienia-info {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 13px;
+}
+
+.ustawienia fieldset {
+  border: 2px groove #fff;
+  padding: 8px 12px;
+}
+
+.ustawienia legend { font-weight: bold; }
+
+.ustawienia label {
+  display: block;
+  margin: 4px 0;
+  cursor: pointer;
+}
+
+.ustawienia button {
+  padding: 3px 16px;
+  background: #c0c0c0;
+  color: #000;
+  border: 2px outset #fff;
+  font: inherit;
+  cursor: pointer;
+}
+
+.ustawienia button:active { border-style: inset; }
+
+#komunikat { margin-left: 8px; font-weight: bold; }
+
+/* Strona z listą: sekcje z tabelami */
+.sekcja h2 {
+  font-size: 1.3em;
+  margin: 14px 0 6px;
+}
+
+/* Stałe szerokości kolumn: obie tabele wyglądają tak samo */
+.lista {
+  width: 100%;
+  table-layout: fixed;
+  border: 1px outset #fff;
+  border-spacing: 1px;
+  overflow-wrap: break-word;
+}
+
+.lista th:nth-child(1) { width: 40%; }
+.lista th:nth-child(2) { width: 45%; }
+.lista th:nth-child(3) { width: 15%; }
+
+.lista th,
+.lista td {
+  border: 1px inset #fff;
+  padding: 2px 6px;
+  text-align: left;
+  vertical-align: top;
+}
+
+.lista th { background: #c0c0c0; }
+.lista td { background: #fff; }
+
 /* Smartfon */
 @media (max-width: 600px) {
   body { padding: 4px; }
@@ -212,7 +296,8 @@ body[data-dzial="kasety"] .cover img { object-fit: contain; background: #000; }
     display: block;
     width: auto;
   }
-  .sidebar { border-right: 0; border-bottom: 2px groove #fff; }
+  .sidebar { border-right: 0; border-bottom: 2px groove #fff; padding-bottom: 8px; }
+  .menu-bottom { position: static; margin-top: 12px; }
   .menu li { display: inline; margin-right: 6px; }
   .menu { list-style: none; padding: 0; }
   .menu li + li::before { content: "| "; color: #fff; }
@@ -225,6 +310,8 @@ body[data-dzial="kasety"] .cover img { object-fit: contain; background: #000; }
   }
   .cover-title { font-size: 0.95em; }
   .info { font-size: 11px; }
+  .lista { font-size: 14px; }
+  .lista th, .lista td { padding: 2px 4px; }
 }
 
 /* Cebula w prawym dolnym rogu (widget.js) */

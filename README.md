@@ -6,20 +6,27 @@ Aplikacja do katalogowania płyt.
 
 ## Funkcje
 
+- Lista wszystkich albumów w tabelach, osobno winyle i kasety
 - Przeglądanie kolekcji w dwóch działach: winyle i kasety
 - Karta albumu z okładką, tytułem, wykonawcą i dowolnymi informacjami
 - Sortowanie po tytule, wykonawcy, roku lub kolejności dodania
 - Wyróżnienie wszystkich albumów wybranego wykonawcy jednym kliknięciem
 - Dodawanie albumów przez edycję pliku
+- Włączanie i wyłączanie działów w ustawieniach (zapamiętywane w przeglądarce)
 
 ## Pliki
 
 | Plik | Do czego służy |
 |------|----------------|
-| `index.html` | Dział Winyle: szkielet strony i tekst przewijanego napisu |
-| `kasety.html` | Dział Kasety: ten sam szkielet |
+| `index.html` | Strona startowa: lista wszystkich albumów |
+| `pages/winyle.html` | Dział Winyle: szkielet strony i tekst przewijanego napisu |
+| `pages/kasety.html` | Dział Kasety: ten sam szkielet |
+| `pages/ustawienia.html` | Strona ustawień |
 | `css/style.css` | Wygląd |
-| `js/app.js` | Zakładki działów, wyświetlanie albumów, sortowanie i podświetlanie |
+| `js/common.js` | Wspólne dla wszystkich stron: działy, ustawienia, zakładki, ścieżki |
+| `js/lista.js` | Tabele na stronie z listą |
+| `js/ustawienia.js` | Obsługa strony ustawień |
+| `js/app.js` | Wyświetlanie albumów w działach, sortowanie i podświetlanie |
 | `js/widget.js` | Cebula w prawym dolnym rogu |
 | `data/winyle.js` | **Lista winyli** |
 | `data/kasety.js` | **Lista kaset** |
@@ -38,6 +45,9 @@ W `data/winyle.js` (tablica `WINYLE`) albo `data/kasety.js` (tablica `KASETY`) d
   note: "Krótka notatka."
 }
 ```
+
+Okładki wrzuć do folderu `covers/` w głównym folderze projektu (kasety: `covers/kasety/`).
+Ścieżkę w `cover` podaj od głównego folderu, tak jak w przykładzie.
 
 ## Uruchomienie
 

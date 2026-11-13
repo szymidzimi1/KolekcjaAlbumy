@@ -9,7 +9,7 @@
   cebula.hidden = true;
 
   const img = document.createElement("img");
-  img.src = "img/cebula.png";
+  img.src = (document.body.dataset.root || "") + "img/cebula.png";
   img.alt = "";
   cebula.appendChild(img);
   document.body.appendChild(cebula);

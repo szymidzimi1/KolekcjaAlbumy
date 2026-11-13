@@ -10,14 +10,6 @@ function colorFor(text) {
   return PLAIN_COLORS[sum % PLAIN_COLORS.length];
 }
 
-// Tworzy element z klasą i tekstem
-function el(tag, className, text) {
-  const node = document.createElement(tag);
-  if (className) node.className = className;
-  if (text !== undefined) node.textContent = text;
-  return node;
-}
-
 // Adres artysty do linku, np. "Łąka Żółć" -> "laka-zolc"
 function slug(text) {
   return text.toLowerCase()
@@ -41,7 +33,7 @@ function renderAlbum(album) {
   const cover = el("div", "cover");
   if (album.cover) {
     const img = document.createElement("img");
-    img.src = album.cover;
+    img.src = sciezka(album.cover);
     img.alt = `Okładka: ${album.title}, ${album.artist}`;
     img.loading = "lazy";
     img.onerror = () => placeholder(cover, album);
@@ -77,21 +69,13 @@ function menuItem(child) {
   return li;
 }
 
-// Działy: nazwa zakładki, strona, dane i odmiana licznika
-const DZIALY = {
-  winyle: { nazwa: "Winyle", strona: "index.html",  dane: () => WINYLE, slowa: ["album", "albumy", "albumów"] },
-  kasety: { nazwa: "Kasety", strona: "kasety.html", dane: () => KASETY, slowa: ["kaseta", "kasety", "kaset"] },
-};
+// Bieżący dział (lista działów jest w common.js)
 const DZIAL = DZIALY[document.body.dataset.dzial] ? document.body.dataset.dzial : "winyle";
-const ALBUMS = DZIALY[DZIAL].dane();
+const WYLACZONY = wczytajUkryte().includes(DZIAL);
+const ALBUMS = WYLACZONY ? [] : DZIALY[DZIAL].dane();
 
-// Zakładki działów
-const tabs = document.getElementById("tabs");
-Object.entries(DZIALY).forEach(([key, d]) => {
-  const tab = el(key === DZIAL ? "b" : "a", "tab", d.nazwa);
-  if (key !== DZIAL) tab.href = d.strona + location.search;
-  tabs.appendChild(tab);
-});
+// Zakładki
+rysujZakladki(DZIAL);
 
 // Sortowanie
 const year = a => parseInt(String(a.info?.Rok ?? "").match(/\d{4}/)?.[0]) || 9999;
@@ -163,8 +147,9 @@ const [one, few, many] = DZIALY[DZIAL].slowa;
 const word = { one, few }[new Intl.PluralRules("pl").select(n)] ?? many;
 document.getElementById("count").textContent = `${n} ${word}`;
 
-// Wyłączone animacje w systemie zatrzymują przewijany napis
-if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-  const m = document.getElementById("marquee");
-  if (m && m.stop) m.stop();
+// Dział wyłączony w ustawieniach: zamiast albumów i licznika komunikat
+if (WYLACZONY) {
+  document.getElementById("count").parentElement.hidden = true;
+  document.getElementById("albums").replaceWith(
+    komunikatUstawien(`Dział „${DZIALY[DZIAL].nazwa}” jest wyłączony w ustawieniach.`));
 }

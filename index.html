@@ -3,10 +3,10 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Moje albumy – Winyle</title>
+  <title>Moje albumy – Lista</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body data-dzial="winyle">
+<body data-dzial="lista">
   <a id="gora"></a>
 
   <table class="layout">
@@ -15,32 +15,25 @@
       <td class="sidebar">
         <p class="menu-head">MENU</p>
 
-        <p class="menu-label">Sortuj według:</p>
-        <ul id="sort" class="menu"></ul>
-
-        <p class="menu-label">Artyści:</p>
-        <ul id="index" class="menu"></ul>
+        <p class="menu-bottom"><a href="pages/ustawienia.html">Ustawienia</a></p>
       </td>
 
       <!-- Prawa kolumna -->
       <td class="content">
-        <!-- Zakładki działów (wypełnia app.js) -->
+        <!-- Zakładki (wypełnia common.js) -->
         <div id="tabs" class="tabs"></div>
 
         <h1>Moje albumy</h1>
 
-        <!-- Przewijany napis -->
+        <!-- Przewijany napis; liczby albumów dopisuje lista.js -->
         <div class="ticker">
           <marquee id="marquee" scrollamount="4">
-            Witaj na mojej stronie z płytami!
+            Witaj na mojej stronie z płytami! <span id="liczniki"></span>
           </marquee>
         </div>
 
-        <p class="center">W kolekcji: <b id="count"></b></p>
-
-        <hr>
-
-        <div id="albums"></div>
+        <!-- Sekcje z tabelami (wypełnia lista.js) -->
+        <div id="lista"></div>
 
         <hr>
 
@@ -50,7 +43,9 @@
   </table>
 
   <script src="data/winyle.js"></script>
-  <script src="js/app.js"></script>
+  <script src="data/kasety.js"></script>
+  <script src="js/common.js"></script>
+  <script src="js/lista.js"></script>
   <script src="js/widget.js"></script>
 </body>
 </html>

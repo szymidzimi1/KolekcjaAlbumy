@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Moje albumy – Ustawienia</title>
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body data-dzial="ustawienia" data-root="../">
+  <table class="layout">
+    <tr>
+      <!-- Menu -->
+      <td class="sidebar">
+        <p class="menu-head">MENU</p>
+
+        <p class="menu-bottom"><b>Ustawienia</b></p>
+      </td>
+
+      <!-- Prawa kolumna -->
+      <td class="content">
+        <!-- Zakładki (wypełnia common.js) -->
+        <div id="tabs" class="tabs"></div>
+
+        <h1>Ustawienia</h1>
+
+        <hr>
+
+        <form id="ustawienia" class="ustawienia">
+          <fieldset>
+            <legend>Pokazuj działy:</legend>
+            <div id="lista-dzialow"></div>
+          </fieldset>
+
+          <p>
+            <button type="submit">Zapisz</button>
+            <span id="komunikat" role="status"></span>
+          </p>
+        </form>
+
+        <p class="ustawienia-info">Ustawienia są zapamiętywane tylko w tej przeglądarce.</p>
+      </td>
+    </tr>
+  </table>
+
+  <script src="../js/common.js"></script>
+  <script src="../js/ustawienia.js"></script>
+  <script src="../js/widget.js"></script>
+</body>
+</html>
