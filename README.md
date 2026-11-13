@@ -2,16 +2,15 @@
 
 Aplikacja do katalogowania płyt.
 
-![Widok strony na komputerze](screen/screenshot.png)
-
-<img src="screen/screenshot-mobile.png" alt="Widok strony na telefonie" width="260">
+![Dział Winyle na komputerze](screen/screenshot.png)
 
 ## Funkcje
 
-- Albumy wyświetlane w kwadratach: okładka, tytuł, artysta, tabelka z informacjami i notatka
-- Album bez okładki dostaje kolor z tytułem
-- Sortowanie według kolejności dodania, tytułu, artysty lub roku
-- Spis artystów w menu, który podświetla na żółto wszystkie albumy danego artysty
+- Przeglądanie kolekcji w dwóch działach: winyle i kasety
+- Karta albumu z okładką, tytułem, wykonawcą i dowolnymi informacjami
+- Sortowanie po tytule, wykonawcy, roku lub kolejności dodania
+- Wyróżnienie wszystkich albumów wybranego wykonawcy jednym kliknięciem
+- Dodawanie albumów przez edycję pliku
 
 ## Pliki
 
@@ -21,8 +20,12 @@ Aplikacja do katalogowania płyt.
 | `kasety.html` | Dział Kasety: ten sam szkielet |
 | `style.css` | Wygląd |
 | `app.js` | Zakładki działów, wyświetlanie albumów, sortowanie i podświetlanie |
+| `widget.js` | Cebula w prawym dolnym rogu |
 | `winyle.js` | **Lista winyli** |
 | `kasety.js` | **Lista kaset** |
+| `img/` | Grafiki strony (cebula) |
+| `screen/` | Zrzuty ekranu do README |
+| `LICENSE` | Licencja MIT |
 | `covers/` | Okładki winyli (opcjonalnie, nie trafiają do repozytorium) |
 | `covers/kasety/` | Okładki kaset (opcjonalnie, nie trafiają do repozytorium) |
 

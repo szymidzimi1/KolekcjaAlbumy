@@ -1,3 +1,4 @@
+// Kolory zastępczych okładek: ten sam tytuł zawsze dostaje ten sam kolor
 const PLAIN_COLORS = [
   "#000080", "#800000", "#008080", "#808000",
   "#006400", "#000000", "#404040", "#8b4513"
@@ -9,6 +10,7 @@ function colorFor(text) {
   return PLAIN_COLORS[sum % PLAIN_COLORS.length];
 }
 
+// Tworzy element z klasą i tekstem
 function el(tag, className, text) {
   const node = document.createElement(tag);
   if (className) node.className = className;
@@ -16,6 +18,7 @@ function el(tag, className, text) {
   return node;
 }
 
+// Adres artysty do linku, np. "Łąka Żółć" -> "laka-zolc"
 function slug(text) {
   return text.toLowerCase()
     .normalize("NFD").replace(/\p{M}/gu, "")
@@ -24,12 +27,14 @@ function slug(text) {
     .replace(/^-|-$/g, "") || "artysta";
 }
 
+// Zastępcza okładka: kolor i tytuł (brak okładki albo błąd wczytania)
 function placeholder(cover, album) {
   cover.textContent = "";
   cover.style.backgroundColor = colorFor(album.title);
   cover.appendChild(el("span", "cover-title", album.title));
 }
 
+// Jeden kwadrat albumu: okładka, tytuł, artysta, tabelka info, notatka
 function renderAlbum(album) {
   const item = el("div", "album");
 
@@ -65,6 +70,7 @@ function renderAlbum(album) {
   return item;
 }
 
+// Pozycja listy w menu
 function menuItem(child) {
   const li = document.createElement("li");
   li.appendChild(child);
@@ -79,6 +85,7 @@ const DZIALY = {
 const DZIAL = DZIALY[document.body.dataset.dzial] ? document.body.dataset.dzial : "winyle";
 const ALBUMS = DZIALY[DZIAL].dane();
 
+// Zakładki działów
 const tabs = document.getElementById("tabs");
 Object.entries(DZIALY).forEach(([key, d]) => {
   const tab = el(key === DZIAL ? "b" : "a", "tab", d.nazwa);
@@ -96,6 +103,7 @@ const SORTS = {
   rok:       { label: "roku",    fn: (a, b) => year(a) - year(b) }
 };
 
+// Menu sortowania: aktywna opcja pogrubiona, pozostałe to linki
 const params = new URLSearchParams(location.search);
 const current = SORTS[params.get("sortuj")] ? params.get("sortuj") : "kolejnosc";
 
@@ -106,7 +114,7 @@ Object.entries(SORTS).forEach(([key, s]) => {
   sortList.appendChild(menuItem(item));
 });
 
-// Numerowanie albumów 
+// Numerowanie albumów (album-1, album-2…) według kolejności w pliku danych, potem sortowanie
 const numbered = ALBUMS.map((a, i) => ({ ...a, id: `album-${i + 1}` }));
 const albums = SORTS[current].fn ? [...numbered].sort(SORTS[current].fn) : numbered;
 
@@ -119,6 +127,7 @@ artists.forEach(name => {
   artistIds.set(name, id);
 });
 
+// Rysowanie albumów
 const list = document.getElementById("albums");
 albums.forEach(a => {
   const node = renderAlbum(a);
@@ -127,6 +136,7 @@ albums.forEach(a => {
   list.appendChild(node);
 });
 
+// Menu artystów
 const indexList = document.getElementById("index");
 artists.forEach(name => {
   const a = el("a", "", name);
@@ -134,6 +144,7 @@ artists.forEach(name => {
   indexList.appendChild(menuItem(a));
 });
 
+// Podświetlanie albumów wskazanych w adresie: #artysta albo #album-N
 function highlight() {
   let target = location.hash.slice(1);
   try { target = decodeURIComponent(target); } catch {}
@@ -152,6 +163,7 @@ const [one, few, many] = DZIALY[DZIAL].slowa;
 const word = { one, few }[new Intl.PluralRules("pl").select(n)] ?? many;
 document.getElementById("count").textContent = `${n} ${word}`;
 
+// Wyłączone animacje w systemie zatrzymują przewijany napis
 if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   const m = document.getElementById("marquee");
   if (m && m.stop) m.stop();

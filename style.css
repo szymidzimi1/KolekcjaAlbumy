@@ -102,10 +102,6 @@ b.tab {
   font-weight: bold;
 }
 
-/* Okładki kaset: pionowy prostokąt, zdjęcie mieści się w całości */
-body[data-dzial="kasety"] .cover { aspect-ratio: 2 / 3; }
-body[data-dzial="kasety"] .cover img { object-fit: contain; background: #000; }
-
 h1 {
   text-align: center;
   font-size: 2.2em;
@@ -142,14 +138,10 @@ hr {
 }
 
 .album {
-  display: inline-block;
-  vertical-align: top;
   width: 168px;
   margin: 2px;
   padding: 6px;
   border: 1px inset #fff;
-  text-align: left;
-  font-size: 16px;
   scroll-margin-top: 10px;
   overflow-wrap: anywhere;
 }
@@ -176,6 +168,10 @@ hr {
   margin: -6px;
   object-fit: cover;
 }
+
+/* Okładki kaset: pionowy prostokąt, zdjęcie mieści się w całości */
+body[data-dzial="kasety"] .cover { aspect-ratio: 2 / 3; }
+body[data-dzial="kasety"] .cover img { object-fit: contain; background: #000; }
 
 .cover-title {
   color: #fff;
@@ -229,4 +225,29 @@ hr {
   }
   .cover-title { font-size: 0.95em; }
   .info { font-size: 11px; }
+}
+
+/* Cebula w prawym dolnym rogu (widget.js) */
+.menu-head { cursor: pointer; }
+
+.cebula[hidden] { display: none; }
+
+.cebula {
+  position: fixed;
+  right: 12px;
+  bottom: 12px;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+}
+
+.cebula img {
+  display: block;
+  width: 72px;
+  image-rendering: pixelated;
+}
+
+@media (max-width: 600px) {
+  .cebula img { width: 54px; }
 }
