@@ -11,29 +11,25 @@ const WINYLE = [
     title: "Lorem ipsum dolor",
     artist: "Sit Amet",
     info: { Rok: "1984", 
-            Gatunek: "Adipiscing",
-            Nośnik: "Elit"}
+            Gatunek: "Adipiscing"}
   },
   {
     title: "Sed do eiusmod",
     artist: "Sit Amet",
     info: { Rok: "2012", 
-            Gatunek: "Et dolore",
-            Nośnik: "Magna"}
+            Gatunek: "Et dolore"}
   },
   {
     title: "Aliqua ut enim",
     artist: "Ad Minim",
     info: { Rok: "1997", 
-            Gatunek: "Quis nostrud",
-            Nośnik: "Exercitation"}
+            Gatunek: "Quis nostrud"}
   },
   {
     title: "Ullamco laboris",
     artist: "Nisi ut aliquip",
     info: { Rok: "2023", 
             Gatunek: "Consequat",
-            Nośnik: "Duis aute",
             Info: "Irure dolor"}
   }
 ];

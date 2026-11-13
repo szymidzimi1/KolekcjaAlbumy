@@ -35,7 +35,7 @@ W `winyle.js` (tablica `WINYLE`) albo `kasety.js` (tablica `KASETY`) dopisz kole
   title: "Tytuł albumu",
   artist: "Wykonawca",
   cover: "covers/okladka.jpg",
-  info: { Rok: "1997", Gatunek: "Rock", Nośnik: "CD" },
+  info: { Rok: "1997", Gatunek: "Rock" },
   note: "Krótka notatka."
 }
 ```

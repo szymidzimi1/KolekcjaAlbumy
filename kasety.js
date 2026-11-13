@@ -11,14 +11,12 @@ const KASETY = [
     title: "Excepteur sint",
     artist: "Occaecat Cupidatat",
     info: { Rok: "1989",
-            Gatunek: "Proident",
-            Nośnik: "Kaseta"}
+            Gatunek: "Proident"}
   },
   {
     title: "Culpa qui officia",
     artist: "Deserunt Mollit",
     info: { Rok: "1994",
-            Gatunek: "Anim id est",
-            Nośnik: "Kaseta"}
+            Gatunek: "Anim id est"}
   }
 ];
