@@ -6,28 +6,20 @@ Aplikacja do katalogowania płyt.
 
 ## Funkcje
 
-- Lista wszystkich albumów w tabelach, osobno winyle i kasety
-- Przeglądanie kolekcji w dwóch działach: winyle i kasety
+- Lista wszystkich albumów
+- Przeglądanie kolekcji w działach po nośniku
 - Karta albumu z okładką, tytułem, wykonawcą i dowolnymi informacjami
 - Sortowanie po tytule, wykonawcy, roku lub kolejności dodania
 - Wyróżnienie wszystkich albumów wybranego wykonawcy jednym kliknięciem
 - Dodawanie albumów przez edycję pliku
-- Włączanie i wyłączanie działów w ustawieniach (zapamiętywane w przeglądarce)
+- Włączanie i wyłączanie działów w ustawieniach
 
 ## Pliki
 
 | Plik | Do czego służy |
 |------|----------------|
 | `index.html` | Strona startowa: lista wszystkich albumów |
-| `pages/winyle.html` | Dział Winyle: szkielet strony i tekst przewijanego napisu |
-| `pages/kasety.html` | Dział Kasety: ten sam szkielet |
 | `pages/ustawienia.html` | Strona ustawień |
-| `css/style.css` | Wygląd |
-| `js/common.js` | Wspólne dla wszystkich stron: działy, ustawienia, zakładki, ścieżki |
-| `js/lista.js` | Tabele na stronie z listą |
-| `js/ustawienia.js` | Obsługa strony ustawień |
-| `js/app.js` | Wyświetlanie albumów w działach, sortowanie i podświetlanie |
-| `js/widget.js` | Cebula w prawym dolnym rogu |
 | `data/winyle.js` | **Lista winyli** |
 | `data/kasety.js` | **Lista kaset** |
 | `LICENSE` | Licencja MIT |
