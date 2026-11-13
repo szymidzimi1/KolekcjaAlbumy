@@ -26,8 +26,6 @@ Aplikacja do katalogowania płyt.
 | `img/` | Grafiki strony (cebula) |
 | `screen/` | Zrzuty ekranu do README |
 | `LICENSE` | Licencja MIT |
-| `covers/` | Okładki winyli (opcjonalnie, nie trafiają do repozytorium) |
-| `covers/kasety/` | Okładki kaset (opcjonalnie, nie trafiają do repozytorium) |
 
 ## Dodawanie albumu
 
