@@ -20,6 +20,7 @@ function el(tag, className, text) {
 const DZIALY = {
   winyle: { nazwa: "Winyle", strona: "pages/winyle.html", dane: () => WINYLE, slowa: ["album", "albumy", "albumów"] },
   kasety: { nazwa: "Kasety", strona: "pages/kasety.html", dane: () => KASETY, slowa: ["kaseta", "kasety", "kaset"] },
+  cd:     { nazwa: "CD",     strona: "pages/cd.html",     dane: () => CD,     slowa: ["płyta CD", "płyty CD", "płyt CD"] },
 };
 
 // Działy wyłączone w ustawieniach, zapisane w przeglądarce (localStorage).

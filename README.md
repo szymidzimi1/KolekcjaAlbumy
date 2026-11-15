@@ -22,11 +22,12 @@ Aplikacja do katalogowania płyt.
 | `pages/ustawienia.html` | Strona ustawień |
 | `data/winyle.js` | **Lista winyli** |
 | `data/kasety.js` | **Lista kaset** |
+| `data/cd.js` | **Lista płyt CD** |
 | `LICENSE` | Licencja MIT |
 
 ## Dodawanie albumu
 
-W `data/winyle.js` (tablica `WINYLE`) albo `data/kasety.js` (tablica `KASETY`) dopisz kolejny wpis:
+W `data/winyle.js` (tablica `WINYLE`), `data/kasety.js` (tablica `KASETY`) albo `data/cd.js` (tablica `CD`) dopisz kolejny wpis:
 
 ```js
 {
@@ -38,7 +39,7 @@ W `data/winyle.js` (tablica `WINYLE`) albo `data/kasety.js` (tablica `KASETY`) d
 }
 ```
 
-Okładki wrzuć do folderu `covers/` w głównym folderze projektu (kasety: `covers/kasety/`).
+Okładki wrzuć do folderu `covers/` w głównym folderze projektu (kasety: `covers/kasety/`, płyty CD: `covers/cd/`).
 Ścieżkę w `cover` podaj od głównego folderu, tak jak w przykładzie.
 
 ## Uruchomienie
