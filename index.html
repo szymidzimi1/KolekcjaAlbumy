@@ -6,38 +6,73 @@
   <title>Moje albumy – Lista</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body data-dzial="lista">
-  <a id="gora"></a>
-
+<body>
   <table class="layout">
     <tr>
       <!-- Menu -->
       <td class="sidebar">
         <p class="menu-head">MENU</p>
 
-        <p class="menu-bottom"><a href="pages/ustawienia.html">Ustawienia</a></p>
+        <!-- Sortowanie i artyści: tylko w działach (wypełnia app.js) -->
+        <div id="menu-dzialu" hidden>
+          <p class="menu-label">Sortuj według:</p>
+          <ul id="sort" class="menu"></ul>
+
+          <p class="menu-label">Artyści:</p>
+          <ul id="index" class="menu"></ul>
+        </div>
+
+        <p id="menu-ustawienia" class="menu-bottom"></p>
       </td>
 
       <!-- Prawa kolumna -->
       <td class="content">
-        <!-- Zakładki (wypełnia common.js) -->
+        <!-- Zakładki (wypełnia app.js) -->
         <div id="tabs" class="tabs"></div>
 
-        <h1>Moje albumy</h1>
+        <h1 id="naglowek">Moje albumy</h1>
 
-        <!-- Przewijany napis; liczby albumów dopisuje lista.js -->
-        <div class="ticker">
+        <!-- Przewijany napis; na liście app.js dopisuje liczby albumów -->
+        <div id="pasek" class="ticker">
           <marquee id="marquee" scrollamount="4">
             Witaj na mojej stronie z płytami! <span id="liczniki"></span>
           </marquee>
         </div>
 
-        <!-- Sekcje z tabelami (wypełnia lista.js) -->
-        <div id="lista"></div>
+        <!-- Lista wszystkich albumów -->
+        <section id="ekran-lista" hidden>
+          <div id="lista"></div>
+        </section>
 
-        <hr>
+        <!-- Dział: Winyle, Kasety, CD -->
+        <section id="ekran-dzial" hidden>
+          <p class="center">W kolekcji: <b id="count"></b></p>
+          <hr>
+          <div id="albums"></div>
+        </section>
 
-        <p class="center small">[ <a href="#gora">do góry</a> ]</p>
+        <!-- Ustawienia -->
+        <section id="ekran-ustawienia" hidden>
+          <hr>
+          <form id="ustawienia" class="ustawienia">
+            <fieldset>
+              <legend>Pokazuj działy:</legend>
+              <div id="lista-dzialow"></div>
+            </fieldset>
+
+            <p>
+              <button type="submit">Zapisz</button>
+              <span id="komunikat" role="status"></span>
+            </p>
+          </form>
+
+          <p class="ustawienia-info">Ustawienia są zapamiętywane tylko w tej przeglądarce.</p>
+        </section>
+
+        <div id="stopka">
+          <hr>
+          <p class="center small">[ <a href="#" id="do-gory">do góry</a> ]</p>
+        </div>
       </td>
     </tr>
   </table>
@@ -46,7 +81,7 @@
   <script src="data/kasety.js"></script>
   <script src="data/cd.js"></script>
   <script src="js/common.js"></script>
-  <script src="js/lista.js"></script>
+  <script src="js/app.js"></script>
   <script src="js/widget.js"></script>
 </body>
 </html>

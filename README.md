@@ -18,8 +18,7 @@ Aplikacja do katalogowania płyt.
 
 | Plik | Do czego służy |
 |------|----------------|
-| `index.html` | Strona startowa: lista wszystkich albumów |
-| `pages/ustawienia.html` | Strona ustawień |
+| `index.html` | Cała aplikacja: lista, działy i ustawienia na jednej stronie |
 | `data/winyle.js` | **Lista winyli** |
 | `data/kasety.js` | **Lista kaset** |
 | `data/cd.js` | **Lista płyt CD** |

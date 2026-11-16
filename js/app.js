@@ -1,34 +1,132 @@
-// Kolory zastępczych okładek: ten sam tytuł zawsze dostaje ten sam kolor
+// Jedna strona bez przeładowania: ekran wybiera adres po "#"
+// (#lista, #winyle, #kasety, #cd, #ustawienia)
+
+// Kolory zastępczych okładek
 const PLAIN_COLORS = [
   "#000080", "#800000", "#008080", "#808000",
   "#006400", "#000000", "#404040", "#8b4513"
 ];
 
-function colorFor(text) {
-  let sum = 0;
-  for (const ch of text) sum = (sum * 31 + ch.charCodeAt(0)) >>> 0;
-  return PLAIN_COLORS[sum % PLAIN_COLORS.length];
+// Nazwy sortowań w menu
+const NAZWY_SORTOW = {
+  kolejnosc: "kolejności dodania",
+  tytul: "tytułu",
+  artysta: "artysty",
+  rok: "roku"
+};
+
+// Stan strony (sortowanie i wyróżniony artysta nie trafiają do adresu)
+const stan = { ekran: "lista", dzial: null, sort: "kolejnosc", artysta: null };
+
+const $ = id => document.getElementById(id);
+
+// Pozycja listy w menu
+function menuItem(child) {
+  const li = document.createElement("li");
+  li.appendChild(child);
+  return li;
 }
 
-// Adres artysty do linku, np. "Łąka Żółć" -> "laka-zolc"
-function slug(text) {
-  return text.toLowerCase()
-    .normalize("NFD").replace(/\p{M}/gu, "")
-    .replace(/ł/g, "l")
-    .replace(/[^\p{L}\p{N}]+/gu, "-")
-    .replace(/^-|-$/g, "") || "artysta";
+// Link w menu, który nie zmienia adresu, tylko wywołuje akcję
+function menuLink(tekst, akcja) {
+  const a = el("a", "", tekst);
+  a.href = location.hash || "#lista";
+  a.addEventListener("click", e => {
+    e.preventDefault();
+    akcja();
+  });
+  return a;
 }
+
+// ---------- Wspólne części ekranu ----------
+
+// Zakładki: Lista (zawsze), potem włączone działy; aktywna pogrubiona, pozostałe to linki
+function rysujZakladki() {
+  const tabs = $("tabs");
+  tabs.textContent = "";
+  const aktywna = stan.ekran === "dzial" ? stan.dzial : stan.ekran;
+  ["lista", ...wlaczoneDzialy()].forEach(key => {
+    const nazwa = key === "lista" ? "Lista" : DZIALY[key].nazwa;
+    const tab = el(key === aktywna ? "b" : "a", "tab", nazwa);
+    if (key !== aktywna) tab.href = `#${key}`;
+    tabs.appendChild(tab);
+  });
+}
+
+// Link „Ustawienia” na dole menu; na ekranie ustawień pogrubiony napis
+function rysujLinkUstawien() {
+  const p = $("menu-ustawienia");
+  p.textContent = "";
+  if (stan.ekran === "ustawienia") {
+    p.appendChild(el("b", "", "Ustawienia"));
+  } else {
+    const a = el("a", "", "Ustawienia");
+    a.href = "#ustawienia";
+    p.appendChild(a);
+  }
+}
+
+// Komunikat z linkiem do ustawień (wszystkie działy wyłączone)
+function komunikatUstawien(tekst) {
+  const info = el("p", "wylaczony", tekst + " ");
+  const link = el("a", "", "Zmień ustawienia");
+  link.href = "#ustawienia";
+  info.appendChild(link);
+  return info;
+}
+
+// ---------- Ekran listy ----------
+
+function rysujListe() {
+  const lista = $("lista");
+  lista.textContent = "";
+  const liczniki = [];
+  const wlaczone = wlaczoneDzialy();
+
+  wlaczone.forEach(key => {
+    const d = DZIALY[key];
+    const albumy = [...daneDzialu(key)].sort(poWykonawcy);
+    const sekcja = el("section", "sekcja");
+    sekcja.appendChild(el("h2", "", d.nazwa));
+    liczniki.push(`${d.nazwa} (${albumy.length})`);
+
+    if (albumy.length === 0) {
+      sekcja.appendChild(el("p", "", "Brak albumów."));
+    } else {
+      const table = el("table", "lista");
+      const head = table.createTHead().insertRow();
+      ["Wykonawca", "Tytuł", "Rok"].forEach(t => head.appendChild(el("th", "", t)));
+      const body = table.createTBody();
+      albumy.forEach(a => {
+        const row = body.insertRow();
+        [a.artist, a.title, a.info?.Rok ?? ""].forEach(t => row.appendChild(el("td", "", t)));
+      });
+      sekcja.appendChild(table);
+    }
+    lista.appendChild(sekcja);
+  });
+
+  if (wlaczone.length === 0) {
+    lista.appendChild(komunikatUstawien("Wszystkie działy są wyłączone w ustawieniach."));
+  }
+
+  // Liczby albumów na przewijanym pasku
+  $("liczniki").textContent = liczniki.join(" | ");
+}
+
+// ---------- Ekran działu ----------
 
 // Zastępcza okładka: kolor i tytuł (brak okładki albo błąd wczytania)
 function placeholder(cover, album) {
   cover.textContent = "";
-  cover.style.backgroundColor = colorFor(album.title);
+  cover.style.backgroundColor = kolorDla(album.title, PLAIN_COLORS);
   cover.appendChild(el("span", "cover-title", album.title));
 }
 
 // Jeden kwadrat albumu: okładka, tytuł, artysta, tabelka info, notatka
 function renderAlbum(album) {
   const item = el("div", "album");
+  item.dataset.artist = album.artist;
 
   const cover = el("div", "cover");
   if (album.cover) {
@@ -58,98 +156,131 @@ function renderAlbum(album) {
   }
 
   if (album.note) item.appendChild(el("p", "note", album.note));
-
   return item;
 }
 
-// Pozycja listy w menu
-function menuItem(child) {
-  const li = document.createElement("li");
-  li.appendChild(child);
-  return li;
-}
-
-// Bieżący dział (lista działów jest w common.js)
-const DZIAL = DZIALY[document.body.dataset.dzial] ? document.body.dataset.dzial : "winyle";
-const WYLACZONY = wczytajUkryte().includes(DZIAL);
-const ALBUMS = WYLACZONY ? [] : DZIALY[DZIAL].dane();
-
-// Zakładki
-rysujZakladki(DZIAL);
-
-// Sortowanie
-const year = a => parseInt(String(a.info?.Rok ?? "").match(/\d{4}/)?.[0]) || 9999;
-
-const SORTS = {
-  kolejnosc: { label: "kolejności dodania", fn: null },
-  tytul:     { label: "tytułu",  fn: (a, b) => a.title.localeCompare(b.title, "pl") },
-  artysta:   { label: "artysty", fn: (a, b) => a.artist.localeCompare(b.artist, "pl") || a.title.localeCompare(b.title, "pl") },
-  rok:       { label: "roku",    fn: (a, b) => year(a) - year(b) }
-};
-
 // Menu sortowania: aktywna opcja pogrubiona, pozostałe to linki
-const params = new URLSearchParams(location.search);
-const current = SORTS[params.get("sortuj")] ? params.get("sortuj") : "kolejnosc";
-
-const sortList = document.getElementById("sort");
-Object.entries(SORTS).forEach(([key, s]) => {
-  const item = el(key === current ? "b" : "a", "", s.label);
-  if (key !== current) item.href = key === "kolejnosc" ? "?" : `?sortuj=${key}`;
-  sortList.appendChild(menuItem(item));
-});
-
-// Numerowanie albumów (album-1, album-2…) według kolejności w pliku danych, potem sortowanie
-const numbered = ALBUMS.map((a, i) => ({ ...a, id: `album-${i + 1}` }));
-const albums = SORTS[current].fn ? [...numbered].sort(SORTS[current].fn) : numbered;
-
-// Spis artystów alfabetycznie; każdy dostaje unikalny adres (np. "AC/DC" i "AC DC" różne)
-const artists = [...new Set(ALBUMS.map(a => a.artist))].sort((a, b) => a.localeCompare(b, "pl"));
-const artistIds = new Map();
-artists.forEach(name => {
-  let id = slug(name), i = 2;
-  while ([...artistIds.values()].includes(id)) id = `${slug(name)}-${i++}`;
-  artistIds.set(name, id);
-});
-
-// Rysowanie albumów
-const list = document.getElementById("albums");
-albums.forEach(a => {
-  const node = renderAlbum(a);
-  node.id = a.id;
-  node.dataset.artist = artistIds.get(a.artist);
-  list.appendChild(node);
-});
-
-// Menu artystów
-const indexList = document.getElementById("index");
-artists.forEach(name => {
-  const a = el("a", "", name);
-  a.href = `#${artistIds.get(name)}`;
-  indexList.appendChild(menuItem(a));
-});
-
-// Podświetlanie albumów wskazanych w adresie: #artysta albo #album-N
-function highlight() {
-  let target = location.hash.slice(1);
-  try { target = decodeURIComponent(target); } catch {}
-  document.querySelectorAll(".album").forEach(node => {
-    const match = target !== "" &&
-      (node.id === target || node.dataset.artist === target);
-    node.classList.toggle("wybrany", match);
+function rysujSortowanie() {
+  const sortList = $("sort");
+  sortList.textContent = "";
+  Object.entries(NAZWY_SORTOW).forEach(([key, nazwa]) => {
+    const item = key === stan.sort
+      ? el("b", "", nazwa)
+      : menuLink(nazwa, () => {
+          stan.sort = key;
+          rysujDzial();
+        });
+    sortList.appendChild(menuItem(item));
   });
 }
-highlight();
-window.addEventListener("hashchange", highlight);
 
-// Licznik
-const n = ALBUMS.length;
-const [one, few, many] = DZIALY[DZIAL].slowa;
-const word = { one, few }[new Intl.PluralRules("pl").select(n)] ?? many;
-document.getElementById("count").textContent = `${n} ${word}`;
+function rysujDzial() {
+  const key = stan.dzial;
+  const albumy = daneDzialu(key);
+  document.body.dataset.dzial = key;   // np. okładki kaset są pionowe (style.css)
 
-// Dział wyłączony w ustawieniach: zamiast albumów i licznika komunikat
-if (WYLACZONY) {
-  document.getElementById("count").parentElement.hidden = true;
-  document.getElementById("albums").replaceWith(
-    komunikatUstawien(`Dział „${DZIALY[DZIAL].nazwa}” jest wyłączony w ustawieniach.`));
+  rysujSortowanie();
+
+  // Albumy
+  const list = $("albums");
+  list.textContent = "";
+  posortuj(albumy, stan.sort).forEach(a => list.appendChild(renderAlbum(a)));
+
+  // Spis artystów alfabetycznie
+  const indexList = $("index");
+  indexList.textContent = "";
+  [...new Set(albumy.map(a => a.artist))]
+    .sort((a, b) => a.localeCompare(b, "pl"))
+    .forEach(name => indexList.appendChild(menuItem(menuLink(name, () => {
+      stan.artysta = name;
+      wyroznij();
+    }))));
+
+  $("count").textContent = odmiana(albumy.length, DZIALY[key].slowa);
+  wyroznij();
 }
+
+// Podświetlenie wszystkich albumów wybranego artysty, bez przewijania
+function wyroznij() {
+  document.querySelectorAll("#albums .album").forEach(node => {
+    node.classList.toggle("wybrany", node.dataset.artist === stan.artysta);
+  });
+}
+
+// ---------- Ekran ustawień ----------
+
+function rysujUstawienia() {
+  const ukryte = wczytajUkryte();
+  const listaDzialow = $("lista-dzialow");
+  listaDzialow.textContent = "";
+  $("komunikat").textContent = "";
+
+  // Pole wyboru dla każdego działu (domyślnie wszystkie zaznaczone)
+  Object.entries(DZIALY).forEach(([key, d]) => {
+    const label = document.createElement("label");
+    const box = document.createElement("input");
+    box.type = "checkbox";
+    box.value = key;
+    box.checked = !ukryte.includes(key);
+    label.append(box, " " + d.nazwa);
+    listaDzialow.appendChild(label);
+  });
+}
+
+$("ustawienia").addEventListener("submit", e => {
+  e.preventDefault();
+  const odznaczone = [...$("lista-dzialow").querySelectorAll("input")]
+    .filter(p => !p.checked)
+    .map(p => p.value);
+
+  $("komunikat").textContent = zapiszUkryte(odznaczone)
+    ? "Zapisano."
+    : "Nie udało się zapisać: przeglądarka blokuje zapis ustawień.";
+  rysujZakladki();
+});
+
+// ---------- Przełączanie ekranów ----------
+
+function pokaz() {
+  const { ekran, dzial } = ekranZAdresu();
+  if (ekran !== stan.ekran || dzial !== stan.dzial) stan.artysta = null;
+  stan.ekran = ekran;
+  stan.dzial = dzial;
+
+  const naUstawieniach = ekran === "ustawienia";
+  $("ekran-lista").hidden = ekran !== "lista";
+  $("ekran-dzial").hidden = ekran !== "dzial";
+  $("ekran-ustawienia").hidden = !naUstawieniach;
+  $("menu-dzialu").hidden = ekran !== "dzial";
+  $("pasek").hidden = naUstawieniach;
+  $("stopka").hidden = naUstawieniach;
+  $("naglowek").textContent = naUstawieniach ? "Ustawienia" : "Moje albumy";
+  $("liczniki").textContent = "";
+  if (ekran !== "dzial") delete document.body.dataset.dzial;
+
+  const tytul = ekran === "dzial" ? DZIALY[dzial].nazwa : naUstawieniach ? "Ustawienia" : "Lista";
+  document.title = `Moje albumy – ${tytul}`;
+
+  if (ekran === "lista") rysujListe();
+  else if (ekran === "dzial") rysujDzial();
+  else rysujUstawienia();
+
+  rysujZakladki();
+  rysujLinkUstawien();
+  window.scrollTo(0, 0);
+}
+
+// „do góry” przewija stronę, nie zmieniając ekranu
+$("do-gory").addEventListener("click", e => {
+  e.preventDefault();
+  window.scrollTo(0, 0);
+});
+
+// Wyłączone animacje w systemie zatrzymują przewijany napis
+if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const m = $("marquee");
+  if (m && m.stop) m.stop();
+}
+
+window.addEventListener("hashchange", pokaz);
+pokaz();
