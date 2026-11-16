@@ -225,6 +225,20 @@ function rysujUstawienia() {
     label.append(box, " " + d.nazwa);
     listaDzialow.appendChild(label);
   });
+
+  // Wybór wyglądu; zaznaczony jest ten, który właśnie oglądamy
+  const wybor = $("wybor-wygladu");
+  wybor.textContent = "";
+  Object.entries(WYGLADY).forEach(([key, w]) => {
+    const label = document.createElement("label");
+    const radio = document.createElement("input");
+    radio.type = "radio";
+    radio.name = "wyglad";
+    radio.value = key;
+    radio.checked = key === TEN_WYGLAD;
+    label.append(radio, " " + w.nazwa);
+    wybor.appendChild(label);
+  });
 }
 
 $("ustawienia").addEventListener("submit", e => {
@@ -233,10 +247,16 @@ $("ustawienia").addEventListener("submit", e => {
     .filter(p => !p.checked)
     .map(p => p.value);
 
-  $("komunikat").textContent = zapiszUkryte(odznaczone)
+  const wyglad = $("wybor-wygladu").querySelector("input:checked").value;
+  const ok = zapiszUkryte(odznaczone) && zapiszWyglad(wyglad);
+
+  $("komunikat").textContent = ok
     ? "Zapisano."
     : "Nie udało się zapisać: przeglądarka blokuje zapis ustawień.";
   rysujZakladki();
+
+  // Inny wygląd: przejście do niego, na ekran ustawień
+  if (ok && wyglad !== TEN_WYGLAD) idzDoWygladu(wyglad);
 });
 
 // ---------- Przełączanie ekranów ----------
@@ -282,5 +302,8 @@ if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
   if (m && m.stop) m.stop();
 }
 
-window.addEventListener("hashchange", pokaz);
-pokaz();
+// Przy przejściu do innego wyglądu (common.js) tej strony nie rysujemy
+if (!PRZEKIEROWANIE) {
+  window.addEventListener("hashchange", pokaz);
+  pokaz();
+}

@@ -240,6 +240,8 @@ body[data-dzial="kasety"] .cover img { object-fit: contain; background: #000; }
 
 .ustawienia legend { font-weight: bold; }
 
+.ustawienia fieldset + fieldset { margin-top: 8px; }
+
 .ustawienia label {
   display: block;
   margin: 4px 0;

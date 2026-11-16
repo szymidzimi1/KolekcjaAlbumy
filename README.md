@@ -13,12 +13,14 @@ Aplikacja do katalogowania płyt.
 - Wyróżnienie wszystkich albumów wybranego wykonawcy jednym kliknięciem
 - Dodawanie albumów przez edycję pliku
 - Włączanie i wyłączanie działów w ustawieniach
+- Dwa wyglądy do wyboru w ustawieniach: klasyczny i nowy w stylu okna Windows 98
 
 ## Pliki
 
 | Plik | Do czego służy |
 |------|----------------|
-| `index.html` | Cała aplikacja: lista, działy i ustawienia na jednej stronie |
+| `index.html` | Cała aplikacja w wyglądzie klasycznym: lista, działy i ustawienia na jednej stronie |
+| `nowy/index.html` | Ta sama aplikacja w nowym wyglądzie |
 | `data/winyle.js` | **Lista winyli** |
 | `data/kasety.js` | **Lista kaset** |
 | `data/cd.js` | **Lista płyt CD** |

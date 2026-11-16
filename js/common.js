@@ -1,4 +1,4 @@
-// Wspólne dla wyglądów: działy, dane, sortowanie, liczniki, ustawienia, wybór ekranu
+// Wspólne dla wyglądów: działy, dane, sortowanie, liczniki, ustawienia, wybór ekranu i wyglądu
 
 // Droga do głównego folderu (atrybut data-root na <body>, np. "../" w podfolderze)
 const ROOT = document.body.dataset.root || "";
@@ -97,3 +97,40 @@ function ekranZAdresu() {
   if (cel in DZIALY && wlaczoneDzialy().includes(cel)) return { ekran: "dzial", dzial: cel };
   return { ekran: "lista", dzial: null };
 }
+
+// Wyglądy: nazwa w ustawieniach i adres strony liczony od głównego folderu.
+// Każda strona mówi, którym jest wyglądem (atrybut data-wyglad na <body>).
+const WYGLADY = {
+  klasyczny: { nazwa: "Klasyczny", adres: "index.html" },
+  nowy:      { nazwa: "Nowy",      adres: "nowy/index.html" },
+};
+const KLUCZ_WYGLAD = "wyglad";
+const TEN_WYGLAD = document.body.dataset.wyglad;
+
+// Zapamiętany wygląd albo null, gdy nikt go jeszcze nie wybrał (albo zapis jest niedostępny)
+function wczytajWyglad() {
+  try {
+    const w = localStorage.getItem(KLUCZ_WYGLAD);
+    return w in WYGLADY ? w : null;
+  } catch {
+    return null;
+  }
+}
+
+function zapiszWyglad(w) {
+  try {
+    localStorage.setItem(KLUCZ_WYGLAD, w);
+    return true;
+  } catch {
+    return false;
+  }
+}
+
+// Przejście do wybranego wyglądu na ten sam ekran (część adresu po "#" zostaje)
+function idzDoWygladu(w) {
+  location.replace(ROOT + WYGLADY[w].adres + location.hash);
+}
+
+// Zapamiętany inny wygląd niż ta strona: przejście od razu, bez rysowania tej strony
+const PRZEKIEROWANIE = !!wczytajWyglad() && wczytajWyglad() !== TEN_WYGLAD;
+if (PRZEKIEROWANIE) idzDoWygladu(wczytajWyglad());
