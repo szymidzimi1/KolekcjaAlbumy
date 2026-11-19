@@ -121,5 +121,21 @@ const WINYLE = [
     info: { Rok: "1970", 
             Gatunek: "Muzyka klasyczna",
             Nośnik: "Winyl"}
+  },
+  {
+    title: "U.S.Bach Organ Works",
+    artist: "Józef Chweedczuk",
+    cover: "covers/bachjozef.jpg",
+    info: { Rok: "nieznana", 
+            Gatunek: "Muzyka klasyczna",
+            Nośnik: "Winyl"}
+  },
+  {
+    title: "The Best of Niemen",
+    artist: "Czesław Niemen",
+    cover: "covers/bachjozef.jpg",
+    info: { Rok: "1979", 
+            Gatunek: "Pop/Rock",
+            Nośnik: "Winyl"}
   }
 ];
