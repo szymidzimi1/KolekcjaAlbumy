@@ -133,7 +133,7 @@ const WINYLE = [
   {
     title: "The Best of Niemen",
     artist: "Czesław Niemen",
-    cover: "covers/bachjozef.jpg",
+    cover: "covers/niemen.webp",
     info: { Rok: "1979", 
             Gatunek: "Pop/Rock",
             Nośnik: "Winyl"}
