@@ -1,0 +1,582 @@
+/* Wygląd okna w stylu Windows 98 */
+
+body {
+  margin: 0;
+  color: #141414;
+  font-family: Tahoma, Verdana, Geneva, sans-serif;
+  font-size: 14px;
+  background-color: #0f6e6e;
+  background-image: radial-gradient(rgba(0, 0, 0, 0.12) 1px, transparent 1px);
+  background-size: 6px 6px;
+}
+
+a { color: #0a2a8f; }
+a:hover { color: #000080; }
+
+[hidden] { display: none !important; }
+
+/* Ramki: wypukła i wklęsła */
+.raised {
+  background: #d6d3ca;
+  border: 2px solid;
+  border-color: #fff #3b3b3b #3b3b3b #fff;
+  box-shadow: inset 1px 1px 0 #ecebe6, inset -1px -1px 0 #8a877e;
+}
+
+.sunken {
+  background: #fff;
+  border: 2px solid;
+  border-color: #8a877e #fff #fff #8a877e;
+  box-shadow: inset 1px 1px 0 #3b3b3b;
+}
+
+/* Przyciski */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  min-height: 26px;
+  padding: 4px 14px;
+  font: 600 13px/1 Tahoma, Verdana, Geneva, sans-serif;
+  color: #141414;
+  text-decoration: none;
+  background: #d6d3ca;
+  border: 2px solid;
+  border-color: #fff #3b3b3b #3b3b3b #fff;
+  box-shadow: inset -1px -1px 0 #8a877e;
+  cursor: pointer;
+}
+
+.btn:hover { color: #141414; }
+
+.btn:active {
+  border-color: #3b3b3b #fff #fff #3b3b3b;
+  box-shadow: inset 1px 1px 0 #8a877e;
+}
+
+.btn-zwykly { font-weight: 400; }
+
+.link-btn {
+  padding: 2px 0;
+  min-height: 0;
+  font: italic 400 15px/1.3 Tahoma, Verdana, Geneva, sans-serif;
+  color: #0a2a8f;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.btn:focus-visible,
+.tab:focus-visible,
+.artist-btn:focus-visible,
+.link-btn:focus-visible,
+.bar-btn:focus-visible {
+  outline: 2px dotted #000080;
+  outline-offset: -5px;
+}
+
+/* Pulpit i okno */
+.pulpit {
+  min-height: 100vh;
+  box-sizing: border-box;
+  padding: 40px 20px 120px;
+}
+
+.okno {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 3px 3px 11px;
+}
+
+.pasek-tytulu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  color: #fff;
+  background: #000080;
+}
+
+.ikona { flex: none; }
+
+.tytul {
+  flex: 1;
+  font-weight: 700;
+  font-size: 15px;
+}
+
+.przyciski-okna {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-okna {
+  width: 22px;
+  height: 20px;
+  min-height: 0;
+  padding: 0;
+}
+
+.btn-zamknij {
+  margin-left: 2px;
+  font: 700 13px/1 "Courier New", Courier, monospace;
+}
+
+.znak-min {
+  width: 8px;
+  height: 2px;
+  margin-top: 8px;
+  background: #141414;
+}
+
+.znak-max {
+  width: 9px;
+  height: 7px;
+  box-sizing: border-box;
+  border: 1px solid #141414;
+  border-top-width: 2px;
+}
+
+.pasek-narzedzi {
+  display: flex;
+  justify-content: flex-end;
+  padding: 4px 6px;
+  border-bottom: 1px solid #8a877e;
+}
+
+.bar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 0 10px;
+  box-sizing: border-box;
+  font: 600 14px/1 Tahoma, Verdana, Geneva, sans-serif;
+  color: #0a2a8f;
+  text-decoration: none;
+  border: 2px solid transparent;
+}
+
+.bar-btn:hover { border-color: #fff #3b3b3b #3b3b3b #fff; }
+
+.bar-btn.wlaczony {
+  color: #141414;
+  background: #c9c6bc;
+  border-color: #3b3b3b #fff #fff #3b3b3b;
+}
+
+.wnetrze { padding: 14px 14px 0; }
+
+/* Zakładki */
+.zakladki {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  padding-left: 6px;
+}
+
+.tab {
+  position: relative;
+  top: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 6px 12px;
+  margin-right: -2px;
+  box-sizing: border-box;
+  font: 600 14px/1 Tahoma, Verdana, Geneva, sans-serif;
+  color: #2b2b2b;
+  text-decoration: none;
+  background: #c9c6bc;
+  border: 2px solid;
+  border-bottom: 0;
+  border-color: #fff #3b3b3b transparent #fff;
+}
+
+.tab:hover { color: #000080; }
+
+.tab[aria-current="page"] {
+  z-index: 1;
+  top: 3px;
+  padding-top: 8px;
+  color: #000080;
+  background: #d6d3ca;
+}
+
+.liczba {
+  font: 400 12px "Courier New", Courier, monospace;
+  color: #4a4a4a;
+}
+
+/* Panel z treścią */
+.panel {
+  min-height: 420px;
+  box-sizing: border-box;
+  padding: 18px;
+}
+
+.naglowek {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #8a877e;
+  box-shadow: 0 1px 0 #fff;
+}
+
+.naglowek h1 {
+  margin: 0;
+  font: 700 40px/1 "Times New Roman", Times, serif;
+}
+
+.naglowek p {
+  margin: 0;
+  font-size: 15px;
+  color: #3b3b3b;
+}
+
+.naglowek b { color: #141414; }
+
+.ramka {
+  margin: 0;
+  padding: 8px 14px 12px;
+  border: 2px groove #f2f1ec;
+}
+
+.ramka legend,
+.etykieta {
+  padding: 0 6px;
+  font-size: 13px;
+  font-weight: 700;
+  color: #000080;
+}
+
+.etykieta { padding: 0; }
+
+.radio {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 40px;
+  cursor: pointer;
+}
+
+/* Pola w ustawieniach: ciaśniej niż wybór sortowania */
+#pola-dzialow .radio,
+#pola-wygladu .radio { min-height: 26px; }
+
+.radio input {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: #000080;
+}
+
+/* Ekran działu */
+#ekran-dzial:not([hidden]) {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 18px;
+}
+
+.boczny {
+  flex: 1 1 220px;
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.artysci {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.artysci-naglowek {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.artysci-naglowek .link-btn {
+  padding: 0;
+  min-height: 0;
+  font-size: 13px;
+  font-style: normal;
+}
+
+#lista-artystow { padding: 2px; }
+
+.artist-btn {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 26px;
+  padding: 4px 8px;
+  font: 400 14px/1.2 Tahoma, Verdana, Geneva, sans-serif;
+  color: #141414;
+  text-align: left;
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.artist-btn:hover { background: #e8eefc; }
+
+.artist-btn[aria-pressed="true"],
+.artist-btn[aria-pressed="true"]:hover {
+  color: #fff;
+  background: #000080;
+}
+
+.artist-btn .liczba { color: inherit; opacity: 0.85; }
+
+.glowna {
+  flex: 999 1 560px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.siatka {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+  gap: 14px;
+  align-items: start;
+}
+
+/* Karta albumu */
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px;
+  overflow-wrap: break-word;
+  background: #d6d3ca;
+  border: 2px solid;
+  border-color: #fff #3b3b3b #3b3b3b #fff;
+  box-shadow: inset -1px -1px 0 #8a877e;
+}
+
+.card.wybrany {
+  background: #fff7b0;
+  border-color: #000080;
+  box-shadow: 0 0 0 2px #000080;
+}
+
+.cover {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  display: flex;
+  align-items: flex-end;
+  padding: 10px;
+  box-sizing: border-box;
+  overflow: hidden;
+  border: 1px solid #141414;
+}
+
+.cover img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Okładki kaset: pionowy prostokąt, zdjęcie mieści się w całości */
+.kasety .cover { aspect-ratio: 2 / 3; }
+.kasety .cover img { object-fit: contain; background: #000; }
+
+.nosnik {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  z-index: 1;
+  padding: 3px 5px;
+  font: 600 11px/1 "Courier New", Courier, monospace;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.7);
+}
+
+.cover-title {
+  font: 700 19px/1.15 "Times New Roman", Times, serif;
+  color: #fff;
+}
+
+.card h2 {
+  margin: 8px 0 0;
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.info {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 4px 10px;
+  margin: 4px 0 0;
+  padding: 6px 8px;
+  font: 12px "Courier New", Courier, monospace;
+}
+
+.info dt { font-weight: 600; color: #3b3b3b; }
+.info dd { margin: 0; min-width: 0; overflow-wrap: break-word; }
+
+.note { margin: 6px 0 0; font-size: 13px; }
+
+/* Ekran listy */
+#ekran-lista:not([hidden]),
+#sekcje {
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+.sekcja {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sekcja-naglowek {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.sekcja h2 {
+  margin: 0;
+  font: 500 22px "Times New Roman", Times, serif;
+  color: #000080;
+}
+
+.tabela { overflow-x: auto; }
+
+.tbl {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.tbl th {
+  padding: 8px 10px;
+  font-weight: 600;
+  text-align: left;
+  background: #d6d3ca;
+  border-bottom: 1px solid #8a877e;
+}
+
+.tbl td {
+  padding: 4px 10px;
+  vertical-align: middle;
+  border-bottom: 1px solid #ecebe6;
+}
+
+.tbl tr:hover td { background: #f3f6ff; }
+
+.tbl .link-btn { font-size: 14px; font-style: normal; }
+
+.tbl .rok { font: 13px "Courier New", Courier, monospace; }
+
+.komunikat {
+  margin: 0;
+  padding: 16px;
+  font-size: 15px;
+}
+
+/* Ekran ustawień */
+#ekran-ustawienia:not([hidden]) {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 520px;
+}
+
+#ustawienia {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.przyciski {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 14px;
+}
+
+#komunikat {
+  font-weight: 600;
+  color: #006400;
+}
+
+.dopisek {
+  margin: 0;
+  font-size: 13px;
+  color: #3b3b3b;
+}
+
+/* Pasek stanu */
+.pasek-stanu {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+  padding-top: 3px;
+  font-size: 13px;
+  color: #2b2b2b;
+}
+
+.pasek-stanu span {
+  padding: 6px 10px;
+  background: #d6d3ca;
+}
+
+#stan1 { flex: 0 0 auto; }
+#stan2,
+#stan3 { flex: 1 1 200px; }
+
+/* Cebula (widget.js) */
+.cebula {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  padding: 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.cebula img {
+  display: block;
+  width: 84px;
+  image-rendering: pixelated;
+}
+
+/* Telefon */
+@media (max-width: 600px) {
+  .pulpit { padding: 8px 4px 80px; }
+  .wnetrze { padding: 8px 6px 0; }
+  .panel { padding: 10px; }
+  .tab { padding: 6px 10px; }
+  .naglowek h1 { font-size: 30px; }
+  .siatka { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .card { padding: 6px; }
+  .cover-title { font-size: 15px; }
+  .cebula img { width: 60px; }
+}
