@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Moje albumy</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-wyglad="nowy" data-root="../">
+  <div class="pulpit">
+    <div class="okno raised">
+
+      <!-- Pasek tytułu okna -->
+      <div class="pasek-tytulu">
+        <svg class="ikona" width="20" height="20" viewBox="0 0 20 20" aria-hidden="true">
+          <circle cx="10" cy="10" r="9" fill="#141414" stroke="#fff" stroke-width="1"></circle>
+          <circle cx="10" cy="10" r="5.5" fill="none" stroke="#3b3b3b" stroke-width="1"></circle>
+          <circle cx="10" cy="10" r="2.5" fill="#ffd400"></circle>
+        </svg>
+        <span id="tytul" class="tytul">Moje albumy</span>
+        <span class="przyciski-okna">
+          <button type="button" class="btn btn-okna" aria-label="Minimalizuj" title="Minimalizuj"><span class="znak-min"></span></button>
+          <button type="button" class="btn btn-okna" id="maksymalizuj" aria-pressed="false" aria-label="Maksymalizuj" title="Maksymalizuj"><span class="znak-max"></span></button>
+          <button type="button" class="btn btn-okna btn-zamknij" aria-label="Zamknij" title="Zamknij">×</button>
+        </span>
+      </div>
+
+      <!-- Pasek narzędzi -->
+      <div class="pasek-narzedzi">
+        <a href="#ustawienia" id="link-ustawienia" class="bar-btn">
+          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M13.2 6.0 L15.4 6.3 L15.4 9.7 L13.2 10.0 L13.1 10.3 L14.4 12.1 L12.1 14.4 L10.3 13.1 L10.0 13.2 L9.7 15.4 L6.3 15.4 L6.0 13.2 L5.7 13.1 L3.9 14.4 L1.6 12.1 L2.9 10.3 L2.8 10.0 L0.6 9.7 L0.6 6.3 L2.8 6.0 L2.9 5.7 L1.6 3.9 L3.9 1.6 L5.7 2.9 L6.0 2.8 L6.3 0.6 L9.7 0.6 L10.0 2.8 L10.3 2.9 L12.1 1.6 L14.4 3.9 L13.1 5.7Z M8 5.6a2.4 2.4 0 1 0 0 4.8a2.4 2.4 0 1 0 0-4.8Z"></path></svg>
+          Ustawienia
+        </a>
+      </div>
+
+      <div class="wnetrze">
+        <!-- Zakładki (wypełnia app.js) -->
+        <nav id="zakladki" class="zakladki" aria-label="Działy"></nav>
+
+        <div class="panel raised">
+
+          <!-- Ekran działu: Winyle, Kasety, CD -->
+          <section id="ekran-dzial" class="ekran" hidden>
+            <aside class="boczny">
+              <fieldset class="ramka">
+                <legend>Sortuj według</legend>
+                <label class="radio"><input type="radio" name="sortuj" value="kolejnosc" checked>kolejności dodania</label>
+                <label class="radio"><input type="radio" name="sortuj" value="tytul">tytułu</label>
+                <label class="radio"><input type="radio" name="sortuj" value="artysta">wykonawcy</label>
+                <label class="radio"><input type="radio" name="sortuj" value="rok">roku</label>
+              </fieldset>
+
+              <div class="artysci">
+                <div class="artysci-naglowek">
+                  <span class="etykieta">Artyści</span>
+                  <button type="button" id="wyczysc" class="link-btn" hidden>Wyczyść</button>
+                </div>
+                <div id="lista-artystow" class="sunken"></div>
+              </div>
+            </aside>
+
+            <div class="glowna">
+              <div class="naglowek">
+                <h1 id="dzial-nazwa"></h1>
+                <p>W kolekcji: <b id="dzial-licznik"></b></p>
+              </div>
+              <div id="albumy" class="siatka"></div>
+            </div>
+          </section>
+
+          <!-- Ekran listy wszystkich albumów -->
+          <section id="ekran-lista" class="ekran" hidden>
+            <div class="naglowek">
+              <h1>Wszystkie albumy</h1>
+              <p>Razem: <b id="razem"></b></p>
+            </div>
+            <div id="sekcje"></div>
+          </section>
+
+          <!-- Ekran ustawień -->
+          <section id="ekran-ustawienia" class="ekran ekran-waski" hidden>
+            <div class="naglowek">
+              <h1>Ustawienia</h1>
+            </div>
+            <form id="ustawienia">
+              <fieldset class="ramka">
+                <legend>Pokazuj działy</legend>
+                <div id="pola-dzialow"></div>
+              </fieldset>
+              <fieldset class="ramka">
+                <legend>Wygląd</legend>
+                <div id="pola-wygladu"></div>
+              </fieldset>
+              <div class="przyciski">
+                <button type="submit" class="btn">Zapisz</button>
+                <a href="#lista" class="btn btn-zwykly">Wróć</a>
+                <span id="komunikat" role="status"></span>
+              </div>
+            </form>
+            <p class="dopisek">Ustawienia są zapamiętywane tylko w tej przeglądarce.</p>
+          </section>
+
+        </div>
+
+        <!-- Pasek stanu (wypełnia app.js) -->
+        <div class="pasek-stanu">
+          <span id="stan1" class="sunken"></span>
+          <span id="stan2" class="sunken"></span>
+          <span id="stan3" class="sunken"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="../data/winyle.js"></script>
+  <script src="../data/kasety.js"></script>
+  <script src="../data/cd.js"></script>
+  <script src="../js/common.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/widget.js"></script>
+</body>
+</html>

@@ -2,43 +2,46 @@
 
 Aplikacja do katalogowania płyt.
 
-![Widok strony na komputerze](screen/screenshot.png)
-
-<img src="screen/screenshot-mobile.png" alt="Widok strony na telefonie" width="260">
+![Dział Winyle na komputerze](docs/screenshot.png)
 
 ## Funkcje
 
-- Albumy wyświetlane w kwadratach: okładka, tytuł, artysta, tabelka z informacjami i notatka
-- Album bez okładki dostaje kolor z tytułem
-- Sortowanie według kolejności dodania, tytułu, artysty lub roku
-- Spis artystów w menu, który podświetla na żółto wszystkie albumy danego artysty
+- Lista wszystkich albumów
+- Przeglądanie kolekcji w działach po nośniku
+- Karta albumu z okładką, tytułem, wykonawcą i dowolnymi informacjami
+- Sortowanie po tytule, wykonawcy, roku lub kolejności dodania
+- Wyróżnienie wszystkich albumów wybranego wykonawcy jednym kliknięciem
+- Dodawanie albumów przez edycję pliku
+- Włączanie i wyłączanie działów w ustawieniach
+- Dwa wyglądy do wyboru w ustawieniach: klasyczny i nowy w stylu okna Windows 98
 
 ## Pliki
 
 | Plik | Do czego służy |
 |------|----------------|
-| `index.html` | Dział Winyle: szkielet strony i tekst przewijanego napisu |
-| `kasety.html` | Dział Kasety: ten sam szkielet |
-| `style.css` | Wygląd |
-| `app.js` | Zakładki działów, wyświetlanie albumów, sortowanie i podświetlanie |
-| `winyle.js` | **Lista winyli** |
-| `kasety.js` | **Lista kaset** |
-| `covers/` | Okładki winyli (opcjonalnie, nie trafiają do repozytorium) |
-| `covers/kasety/` | Okładki kaset (opcjonalnie, nie trafiają do repozytorium) |
+| `index.html` | Cała aplikacja w wyglądzie klasycznym: lista, działy i ustawienia na jednej stronie |
+| `nowy/index.html` | Ta sama aplikacja w nowym wyglądzie |
+| `data/winyle.js` | **Lista winyli** |
+| `data/kasety.js` | **Lista kaset** |
+| `data/cd.js` | **Lista płyt CD** |
+| `LICENSE` | Licencja MIT |
 
 ## Dodawanie albumu
 
-W `winyle.js` (tablica `WINYLE`) albo `kasety.js` (tablica `KASETY`) dopisz kolejny wpis:
+W `data/winyle.js` (tablica `WINYLE`), `data/kasety.js` (tablica `KASETY`) albo `data/cd.js` (tablica `CD`) dopisz kolejny wpis:
 
 ```js
 {
   title: "Tytuł albumu",
   artist: "Wykonawca",
   cover: "covers/okladka.jpg",
-  info: { Rok: "1997", Gatunek: "Rock", Nośnik: "CD" },
+  info: { Rok: "1997", Gatunek: "Rock" },
   note: "Krótka notatka."
 }
 ```
+
+Okładki wrzuć do folderu `covers/` w głównym folderze projektu (kasety: `covers/kasety/`, płyty CD: `covers/cd/`).
+Ścieżkę w `cover` podaj od głównego folderu, tak jak w przykładzie.
 
 ## Uruchomienie
 
