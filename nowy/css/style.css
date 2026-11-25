@@ -6,8 +6,6 @@ body {
   font-family: Tahoma, Verdana, Geneva, sans-serif;
   font-size: 14px;
   background-color: #0f6e6e;
-  background-image: radial-gradient(rgba(0, 0, 0, 0.12) 1px, transparent 1px);
-  background-size: 6px 6px;
 }
 
 a { color: #0a2a8f; }
